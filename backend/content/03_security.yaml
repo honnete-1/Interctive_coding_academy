@@ -1,0 +1,15 @@
+world:
+  slug: security-fortress
+  title: Cybersecurity Fortress
+  tagline: Understand systems deeply enough to defend them.
+  order: 3
+  theme: navy
+  is_available: false
+  prerequisite_note: Complete the Python Foundations capstone.
+  prerequisite_lessons: [rider-day-summary]
+  description: |
+    Stage 1 Networks, operating systems, Linux, DNS, HTTP/HTTPS ·
+    Stage 2 Confidentiality, integrity, availability, authentication, encryption basics ·
+    Stage 3 Application security: input validation, secrets, sessions, threat modelling ·
+    Stage 4 Security operations: logs, monitoring, incident response ·
+    All labs are simulated and isolated; defensive and ethical by design.

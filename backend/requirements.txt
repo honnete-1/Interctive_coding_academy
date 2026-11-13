@@ -1,0 +1,12 @@
+Django>=5.2,<5.3
+djangorestframework>=3.16,<4
+drf-spectacular>=0.28
+dj-database-url>=2.2
+psycopg[binary]>=3.2
+python-dotenv>=1.0
+PyYAML>=6.0
+anthropic>=2.0
+gunicorn>=23.0; sys_platform != "win32"
+# tests
+pytest>=8
+pytest-django>=4.9

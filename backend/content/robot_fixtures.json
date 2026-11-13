@@ -1,0 +1,22 @@
+{
+  "description": "Shared fixtures for the robot simulator. Both backend/apps/grader/robot.py and frontend/src/lib/robot.ts must produce these outcomes.",
+  "cases": [
+    {"name": "straight road solved", "spec": {"grid": ["S.P.D"], "facing": "E"},
+     "program": [{"cmd": "forward"}, {"cmd": "forward"}, {"cmd": "pick"}, {"cmd": "forward"}, {"cmd": "forward"}, {"cmd": "drop"}],
+     "outcome": "delivered", "actions": 6},
+    {"name": "drives off the map", "spec": {"grid": ["S.P.D"], "facing": "E"},
+     "program": [{"cmd": "left"}, {"cmd": "forward"}], "outcome": "crashed", "actions": 2},
+    {"name": "hits a wall", "spec": {"grid": ["S#P", "..D"], "facing": "E"},
+     "program": [{"cmd": "forward"}], "outcome": "crashed", "actions": 1},
+    {"name": "pick in the wrong place", "spec": {"grid": ["S.P.D"], "facing": "E"},
+     "program": [{"cmd": "pick"}], "outcome": "invalid_action", "actions": 1},
+    {"name": "stops early", "spec": {"grid": ["S.P.D"], "facing": "E"},
+     "program": [{"cmd": "forward"}, {"cmd": "forward"}, {"cmd": "pick"}], "outcome": "incomplete", "actions": 3},
+    {"name": "repeat solves long road", "spec": {"grid": ["S.....P", "######D"], "facing": "E", "max_blocks": 6},
+     "program": [{"cmd": "repeat", "times": 6, "body": [{"cmd": "forward"}]}, {"cmd": "pick"}, {"cmd": "right"}, {"cmd": "forward"}, {"cmd": "drop"}],
+     "outcome": "delivered", "actions": 10},
+    {"name": "too many blocks", "spec": {"grid": ["S.....P", "######D"], "facing": "E", "max_blocks": 6},
+     "program": [{"cmd": "forward"}, {"cmd": "forward"}, {"cmd": "forward"}, {"cmd": "forward"}, {"cmd": "forward"}, {"cmd": "forward"}, {"cmd": "pick"}, {"cmd": "right"}, {"cmd": "forward"}, {"cmd": "drop"}],
+     "outcome": "too_long", "actions": 10}
+  ]
+}

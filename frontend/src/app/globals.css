@@ -1,0 +1,183 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   CodeVerse design tokens
+   Warm paper surfaces, deep navy ink, teal / coral / gold / blue accents.
+   Dark mode is a deep-navy "night map". Every colour pair meets WCAG AA for text.
+--------------------------------------------------------------------------- */
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+:root {
+  --paper: #f7f2e8;
+  --paper-2: #efe7d7;
+  --card: #fffdf8;
+  --ink: #15213b;
+  --ink-2: #44506a;
+  --ink-3: #6b7489;
+  --line: #e0d5c1;
+  --line-strong: #c9bba1;
+
+  --teal: #0f766e;
+  --teal-soft: #d5ede9;
+  --coral: #c2441f;
+  --coral-soft: #f9e0d6;
+  --gold: #a8660a;
+  --gold-soft: #f8e7c4;
+  --blue: #1d4ed8;
+  --blue-soft: #dbe5fb;
+  --violet: #6d3fc0;
+  --violet-soft: #e8dffa;
+
+  --good: #15803d;
+  --good-soft: #dcf2e3;
+  --bad: #b42318;
+  --bad-soft: #fbe1de;
+  --warn: #a15c07;
+  --warn-soft: #fbecd0;
+
+  --editor-bg: #fffdf8;
+  --shadow: 0 1px 0 rgb(21 33 59 / 0.04), 0 6px 18px -8px rgb(21 33 59 / 0.18);
+  --shadow-lift: 0 2px 0 rgb(21 33 59 / 0.05), 0 18px 40px -18px rgb(21 33 59 / 0.35);
+  --font-scale: 1;
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --paper: #0d1526;
+  --paper-2: #121d33;
+  --card: #16223b;
+  --ink: #eef1f7;
+  --ink-2: #b9c2d6;
+  --ink-3: #8d98b0;
+  --line: #26344f;
+  --line-strong: #364766;
+
+  --teal: #3cc6b5;
+  --teal-soft: #113a3a;
+  --coral: #ff8a65;
+  --coral-soft: #3d2320;
+  --gold: #f5b84a;
+  --gold-soft: #3a2e17;
+  --blue: #7aa2ff;
+  --blue-soft: #1b2b52;
+  --violet: #b69bff;
+  --violet-soft: #2a2148;
+
+  --good: #4ade80;
+  --good-soft: #143322;
+  --bad: #ff7b72;
+  --bad-soft: #3d1c1c;
+  --warn: #fbbf24;
+  --warn-soft: #3a2c12;
+
+  --editor-bg: #111a2e;
+  --shadow: 0 1px 0 rgb(0 0 0 / 0.2), 0 8px 24px -10px rgb(0 0 0 / 0.6);
+  --shadow-lift: 0 2px 0 rgb(0 0 0 / 0.25), 0 20px 44px -18px rgb(0 0 0 / 0.75);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-card: var(--card);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-teal: var(--teal);
+  --color-teal-soft: var(--teal-soft);
+  --color-coral: var(--coral);
+  --color-coral-soft: var(--coral-soft);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-blue: var(--blue);
+  --color-blue-soft: var(--blue-soft);
+  --color-violet: var(--violet);
+  --color-violet-soft: var(--violet-soft);
+  --color-good: var(--good);
+  --color-good-soft: var(--good-soft);
+  --color-bad: var(--bad);
+  --color-bad-soft: var(--bad-soft);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-atkinson), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, "Cascadia Code", monospace;
+  --shadow-card: var(--shadow);
+  --shadow-lift: var(--shadow-lift);
+}
+
+html {
+  font-size: calc(100% * var(--font-scale));
+  background: var(--paper);
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Subtle paper grain on the main canvas (pure CSS, no image download). */
+.canvas {
+  background-image:
+    radial-gradient(circle at 1px 1px, color-mix(in oklab, var(--ink) 7%, transparent) 1px, transparent 0);
+  background-size: 22px 22px;
+}
+
+h1, h2, h3, .font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--teal) 30%, transparent);
+}
+
+code, kbd, pre, .font-mono {
+  font-family: var(--font-mono);
+}
+
+.prose-cv p { margin: 0.5rem 0; line-height: 1.65; }
+.prose-cv ul { margin: 0.5rem 0; padding-left: 1.25rem; list-style: disc; }
+.prose-cv li { margin: 0.25rem 0; line-height: 1.6; }
+.prose-cv strong { font-weight: 700; color: var(--ink); }
+.prose-cv code {
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0.05rem 0.35rem;
+  font-size: 0.9em;
+}
+
+/* Reduced motion: honour both the OS setting and the learner's in-app preference. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}
+[data-reduced-motion="true"] *, [data-reduced-motion="true"] *::before, [data-reduced-motion="true"] *::after {
+  animation-duration: 0.01ms !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+@keyframes cv-pop { 0% { transform: scale(0.85); opacity: 0; } 60% { transform: scale(1.04); opacity: 1; } 100% { transform: scale(1); } }
+.animate-pop { animation: cv-pop 360ms cubic-bezier(.2,.8,.2,1) both; }
+@keyframes cv-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+.animate-float { animation: cv-float 4s ease-in-out infinite; }
+@keyframes cv-dash { to { stroke-dashoffset: 0; } }
+
+/* Monaco decorations for Code X-Ray */
+.cv-line-current { background: color-mix(in oklab, var(--gold) 22%, transparent); }
+.cv-glyph-current { background: var(--gold); border-radius: 50%; margin-left: 6px; width: 9px !important; height: 9px !important; margin-top: 7px; }
+.cv-line-error { background: color-mix(in oklab, var(--bad) 18%, transparent); }
+.cv-glyph-error { background: var(--bad); border-radius: 2px; margin-left: 6px; width: 9px !important; height: 9px !important; margin-top: 7px; }

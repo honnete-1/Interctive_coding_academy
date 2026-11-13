@@ -1,0 +1,904 @@
+# World 1 — Python Foundations (Phase 1 slice: first steps → variables → conditions → loops → capstone)
+# Example prices are educational and are NOT official transport, mobile-money or utility tariffs.
+
+world:
+  slug: python
+  title: Python Foundations
+  tagline: Write real programs that solve everyday problems.
+  order: 1
+  theme: teal
+  description: |
+    Learn Python from your very first line. Every concept is tied to a real problem — moto fares,
+    mobile money, delivery rounds — and every challenge is checked by automated tests.
+
+skills:
+  - slug: py-output
+    name: Printing output
+    description: Use print() to show text and values.
+  - slug: variables
+    name: Variables
+    description: Store values under names and update them.
+    prerequisites: [py-output]
+  - slug: expressions
+    name: Expressions & operators
+    description: Combine values with arithmetic to compute new values.
+    prerequisites: [variables]
+  - slug: input-output
+    name: Input & conversion
+    description: Read text with input() and convert it to numbers with int().
+    prerequisites: [variables]
+  - slug: conditions
+    name: Conditions
+    description: Make decisions with comparisons and if / elif / else.
+    prerequisites: [expressions]
+  - slug: loops
+    name: Loops
+    description: Repeat work with for and while loops, and stop them safely.
+    prerequisites: [conditions]
+  - slug: decomposition
+    name: Problem decomposition
+    description: Split a larger problem into smaller steps and combine the pieces.
+    prerequisites: [loops]
+
+modules:
+  - slug: python-first-steps
+    title: First Steps in Python
+    description: From your first print() to a complete program that combines variables, decisions and loops.
+    lessons:
+      - slug: hello-python
+        title: Your First Python Program
+        summary: Make the computer say something — and learn how Python reads your code line by line.
+        kind: lesson
+        xp: 40
+        estimated_minutes: 10
+        prerequisites: [what-is-programming]
+        objectives:
+          - Run a Python program and read its output
+          - Use print() with text in quotes
+          - Understand that Python runs lines from top to bottom
+        skills: [py-output]
+        challenges:
+          - slug: hello-two-lines
+            title: A Two-Line Greeting
+            tier: micro
+            xp: 20
+            skills: [py-output]
+            prompt: Write a program that prints exactly two lines — first `Hello, CodeVerse!` and then `I am learning Python.`
+            requirements:
+              - Line 1 is Hello, CodeVerse!
+              - Line 2 is I am learning Python.
+            starter_code: |
+              # Each print() shows one line.
+              print("Hello, CodeVerse!")
+            solution: |
+              print("Hello, CodeVerse!")
+              print("I am learning Python.")
+            tests:
+              - name: Prints both lines in order
+                stdout: |
+                  Hello, CodeVerse!
+                  I am learning Python.
+            hints:
+              - { level: 1, text: "How many lines does your program print right now?" }
+              - { level: 2, text: "Each print() produces one line. You need one more." }
+              - { level: 3, text: "Text must be inside quotes so Python knows it's text, not code." }
+              - { level: 4, text: "Add a second line: print(\"...\") with the second sentence inside the quotes." }
+        blocks:
+          - type: story
+            id: story
+            title: Talking to the computer
+            scene: computer
+            body: |
+              Python is a programming language: a precise way to write instructions that a computer can run.
+              It's used for websites, data analysis, AI and much more — and it's famous for being readable.
+          - type: explain
+            id: print
+            title: print() shows output
+            body: |
+              `print(...)` tells Python to display something. Text goes inside quotes, so Python knows it's text
+              (called a **string**) and not an instruction.
+            code: |
+              print("Muraho!")
+              print("Welcome to CodeVerse")
+            note: Python runs the lines from top to bottom, one at a time.
+          - type: xray
+            id: xray
+            title: Watch Python run it
+            prompt: Press Step to watch Python run one line at a time. The output appears only when a print() line runs.
+            code: |
+              print("Muraho!")
+              print("Welcome to CodeVerse")
+          - type: predict
+            id: predict-quotes
+            question: What happens if you run print(Hello) — without quotes?
+            options:
+              - { id: prints, label: It prints Hello }
+              - { id: error, label: Python reports an error, because Hello without quotes looks like a name it doesn't know }
+              - { id: nothing, label: Nothing happens }
+            answer: error
+            explanation: Without quotes, Python thinks Hello is the name of a variable. No variable has that name, so it stops with a NameError. Error messages are clues, not failures — they tell you what Python didn't understand.
+          - type: challenge
+            id: c1
+            challenge: hello-two-lines
+
+      - slug: moto-fare-calculator
+        title: "Mission: Moto Fare Calculator"
+        summary: Use variables and expressions to estimate a moto fare — then build a real calculator that reads input.
+        kind: mission
+        xp: 120
+        estimated_minutes: 30
+        prerequisites: [hello-python]
+        objectives:
+          - Store values in variables with clear names
+          - Compute a new value with an expression (distance * rate)
+          - Read numbers from the user with int(input())
+          - Apply the same idea to a new problem (electricity bill)
+        skills: [variables, expressions, input-output]
+        challenges:
+          - slug: fare-change-values
+            title: Change the Trip
+            tier: micro
+            xp: 20
+            skills: [variables, expressions]
+            prompt: A new passenger travels **7 km** and the rider charges **350 RWF per km**. Change the program so it calculates and prints this fare.
+            requirements:
+              - distance is 7
+              - rate is 350
+              - fare is calculated with an expression, not typed in
+              - The fare is printed
+            starter_code: |
+              distance = 4
+              rate = 300
+              fare = distance * rate
+              print(fare)
+            solution: |
+              distance = 7
+              rate = 350
+              fare = distance * rate
+              print(fare)
+            quality_checks:
+              - { rule: uses_operator, op: "*", message: "Calculate fare with distance * rate instead of typing the answer." }
+              - { rule: no_hardcoded_output, values: ["2450"], message: "Print the variable fare rather than the number itself." }
+            tests:
+              - name: Variables hold the new trip
+                kind: variables
+                variables: { distance: 7, rate: 350, fare: 2450 }
+              - name: Prints the fare
+                stdout: "2450"
+            hints:
+              - { level: 1, text: "Which two lines describe the trip? Those are the only ones that need to change." }
+              - { level: 2, text: "A variable is updated by assigning it a new value: name = new value." }
+              - { level: 3, text: "Use Code X-Ray on your code: after line 3, what's inside fare?" }
+              - { level: 4, text: "Change the 4 to 7 and the 300 to 350. Leave the fare line alone — it recalculates automatically." }
+          - slug: fare-service-fee
+            title: Add a Service Fee
+            tier: micro
+            xp: 25
+            skills: [variables, expressions]
+            prompt: The app adds a fixed **service fee of 200 RWF** to every trip. Create a variable `service_fee` and a variable `total` (fare + service fee), then print the total.
+            requirements:
+              - Create service_fee = 200
+              - Create total from fare and service_fee
+              - Print total
+            starter_code: |
+              distance = 4
+              rate = 300
+              fare = distance * rate
+              # add service_fee and total below
+
+            solution: |
+              distance = 4
+              rate = 300
+              fare = distance * rate
+              service_fee = 200
+              total = fare + service_fee
+              print(total)
+            quality_checks:
+              - { rule: defines_variable, name: service_fee, message: "Store the fee in a variable called service_fee." }
+              - { rule: defines_variable, name: total, message: "Store the final amount in a variable called total." }
+            tests:
+              - name: Service fee and total are correct
+                kind: variables
+                variables: { fare: 1200, service_fee: 200, total: 1400 }
+                hint: "total should be fare + service_fee."
+              - name: Prints the total
+                stdout: "1400"
+            hints:
+              - { level: 1, text: "What new information does the program need to know about? Give it a name." }
+              - { level: 2, text: "You can build a variable from other variables, like fare = distance * rate." }
+              - { level: 3, text: "Order matters: a variable must be created before a later line uses it." }
+              - { level: 4, text: "Two new lines: service_fee = 200, then total = fare + service_fee. Then print(total)." }
+          - slug: fare-calculator-input
+            title: The Real Fare Calculator
+            tier: project
+            xp: 50
+            skills: [variables, expressions, input-output]
+            prompt: |
+              Turn the calculator into a real tool. Read the **distance** (whole km) and the **rate** (RWF per km) from input,
+              add the 200 RWF service fee, and print the result in the form `Total fare: 1400 RWF`.
+            requirements:
+              - Read distance and rate with int(input())
+              - Add a service fee of 200
+              - "Print: Total fare: <amount> RWF"
+              - Works for any trip, not just the example
+            starter_code: |
+              distance = int(input("Distance in km: "))
+              # read the rate the same way
+
+              service_fee = 200
+              # calculate the total and print it
+
+            solution: |
+              distance = int(input("Distance in km: "))
+              rate = int(input("Rate per km: "))
+              service_fee = 200
+              total = distance * rate + service_fee
+              print(f"Total fare: {total} RWF")
+            quality_checks:
+              - { rule: uses_input, message: "Read the trip details with input()." }
+              - { rule: no_hardcoded_output, values: ["1400", "2700"], message: "Don't print a fixed number — print the calculated total." }
+            tests:
+              - name: Example trip (4 km at 300)
+                stdin: "4\n300"
+                stdout: "Total fare: 1400 RWF"
+              - name: Longer trip
+                visible: false
+                stdin: "10\n250"
+                stdout: "Total fare: 2700 RWF"
+                hint: "Make sure both distance and rate come from input."
+              - name: Zero distance still pays the service fee
+                visible: false
+                stdin: "0\n300"
+                stdout: "Total fare: 200 RWF"
+                hint: "When distance is 0, the passenger still pays the service fee."
+              - name: High rate
+                visible: false
+                stdin: "1\n1000"
+                stdout: "Total fare: 1200 RWF"
+            hints:
+              - { level: 1, text: "Your program needs two numbers from the passenger. Which line reads the first one?" }
+              - { level: 2, text: "input() always gives you text. int(...) turns text like \"300\" into the number 300." }
+              - { level: 3, text: "In the Input panel, type each value on its own line — 4 then 300 — to test like a passenger would." }
+              - { level: 4, text: "rate = int(input(\"Rate per km: \")), then total = distance * rate + service_fee, then print with an f-string: f\"Total fare: {total} RWF\"." }
+          - slug: electricity-bill-transfer
+            title: "Transfer: Electricity Bill"
+            tier: transfer
+            xp: 60
+            skills: [variables, expressions, input-output]
+            prompt: |
+              New problem, same ideas. A utility company charges a price per **unit (kWh)** plus a fixed **meter charge of 300 RWF**.
+              Read the number of units used and the price per unit (both whole numbers), then print `Electricity bill: <amount> RWF`.
+              (Prices here are invented for practice, not real tariffs.)
+            requirements:
+              - Read units and price per unit from input
+              - Add a meter charge of 300
+              - "Print: Electricity bill: <amount> RWF"
+            starter_code: |
+              # Electricity bill calculator
+
+            solution: |
+              units = int(input("Units used: "))
+              price = int(input("Price per unit: "))
+              meter_charge = 300
+              bill = units * price + meter_charge
+              print(f"Electricity bill: {bill} RWF")
+            quality_checks:
+              - { rule: uses_input, message: "Read the units and price with input()." }
+              - { rule: uses_operator, op: "*", message: "Multiply units by price to get the usage cost." }
+            tests:
+              - name: 50 units at 120
+                stdin: "50\n120"
+                stdout: "Electricity bill: 6300 RWF"
+              - name: No usage still pays the meter charge
+                visible: false
+                stdin: "0\n150"
+                stdout: "Electricity bill: 300 RWF"
+              - name: Large household
+                visible: false
+                stdin: "120\n89"
+                stdout: "Electricity bill: 10980 RWF"
+              - name: Expensive units
+                visible: false
+                stdin: "7\n1000"
+                stdout: "Electricity bill: 7300 RWF"
+            hints:
+              - { level: 1, text: "Compare this with the fare calculator. What plays the role of distance? Of rate? Of the service fee?" }
+              - { level: 2, text: "Inputs → variables → one expression → print. The same four steps." }
+              - { level: 3, text: "Test with 50 and 120 in the Input panel. Work out the answer on paper first: 50 × 120 + 300." }
+            rubric: { correctness: 0.6, quality: 0.15, independence: 0.25 }
+        blocks:
+          - type: story
+            id: story
+            title: "Aline's trip into town"
+            scene: moto
+            body: |
+              Aline needs a moto from Kimironko into town. Before she climbs on, she wants to know roughly how
+              much it will cost. The rider says: “It depends on the distance — I charge per kilometre.”
+
+              Let's build the calculator that answers her question.
+          - type: visual
+            id: explorer
+            component: fare-explorer
+            caption: Move the sliders. This is a simulation in your browser — not yet Python.
+            config:
+              distance: { min: 1, max: 20, step: 1, default: 4 }
+              rate: { min: 100, max: 1000, step: 50, default: 300 }
+              currency: RWF
+              disclaimer: Example rates for learning only — not official transport prices.
+          - type: predict
+            id: predict-fare
+            question: If distance = 6 and rate = 300, what does fare = distance * rate store?
+            options:
+              - { id: a, label: "1800" }
+              - { id: b, label: "306" }
+              - { id: c, label: "The text \"distance * rate\"" }
+              - { id: d, label: "6300" }
+            answer: a
+            explanation: The * symbol means multiply. Python looks up the values inside distance (6) and rate (300), multiplies them, and stores 1800 in fare. It stores the result, not the formula.
+          - type: explain
+            id: variables
+            title: Variables are names for values
+            body: |
+              A **variable** is a name that refers to a value. `distance = 4` means “from now on, distance refers to 4”.
+              The `=` sign means *assign*, not *equals* like in maths.
+            analogy: Think of a labelled box — the label is the name, and the value sits inside.
+            actual: In reality Python keeps the value in memory and the name points to it. Assigning again makes the name point to a new value.
+            code: |
+              distance = 4
+              rate = 300
+              fare = distance * rate
+              print(fare)
+          - type: visual
+            id: varlab
+            component: variable-lab
+            caption: Run the program for real. The boxes are filled from Python's actual execution — step through to watch each one appear.
+            config:
+              code: |
+                distance = 4
+                rate = 300
+                fare = distance * rate
+                print(fare)
+              editable: true
+              highlight: [distance, rate, fare]
+          - type: challenge
+            id: c1
+            challenge: fare-change-values
+          - type: challenge
+            id: c2
+            challenge: fare-service-fee
+          - type: explain
+            id: input
+            title: Asking the passenger with input()
+            body: |
+              A real calculator shouldn't need its code edited for every trip. `input()` pauses the program and
+              reads what the user types. It always returns **text** (a string), so we convert it with `int()`.
+            code: |
+              distance = int(input("Distance in km: "))
+            note: In CodeVerse, type the user's answers in the Input panel, one per line, before you press Run.
+          - type: predict
+            id: predict-input
+            question: "The user types 4. What does this print?  x = input()  then  print(x * 2)"
+            options:
+              - { id: eight, label: "8" }
+              - { id: fourfour, label: "44" }
+              - { id: error, label: An error }
+            answer: fourfour
+            explanation: input() returns the text "4". Multiplying text by 2 repeats it — "44". That's why we wrap input() in int() when we need a number.
+          - type: challenge
+            id: project
+            challenge: fare-calculator-input
+          - type: challenge
+            id: transfer
+            challenge: electricity-bill-transfer
+          - type: reflection
+            id: reflect
+            prompt: In your own words, explain what the line fare = distance * rate does, step by step, and why your calculator works for any trip.
+            min_chars: 40
+
+      - slug: mobile-money-validator
+        title: "Mission: Mobile Money Validator"
+        summary: Teach a program to make decisions — approve, reject, or flag a transaction.
+        kind: mission
+        xp: 100
+        estimated_minutes: 25
+        prerequisites: [moto-fare-calculator]
+        objectives:
+          - Compare values with <, <=, >, >=, ==
+          - Choose between paths with if / elif / else
+          - Test boundary cases (exactly equal values)
+        skills: [conditions]
+        challenges:
+          - slug: momo-validator
+            title: Transaction Validator
+            tier: project
+            xp: 50
+            skills: [conditions, input-output]
+            prompt: |
+              Read the account **balance** and the transfer **amount** (whole numbers). Print exactly one message:
+              - `Invalid amount` if the amount is 0 or less
+              - `Insufficient balance` if the amount is more than the balance
+              - `Approved` otherwise
+            requirements:
+              - Check for invalid amounts first
+              - An amount equal to the balance is approved
+              - Print exactly one message
+            starter_code: |
+              balance = int(input("Balance: "))
+              amount = int(input("Amount: "))
+
+              if amount <= 0:
+                  print("Invalid amount")
+              # add the other checks
+
+            solution: |
+              balance = int(input("Balance: "))
+              amount = int(input("Amount: "))
+              if amount <= 0:
+                  print("Invalid amount")
+              elif amount > balance:
+                  print("Insufficient balance")
+              else:
+                  print("Approved")
+            quality_checks:
+              - { rule: uses_if, message: "Use if / elif / else to choose the message." }
+            tests:
+              - name: Enough balance
+                stdin: "5000\n2000"
+                stdout: Approved
+              - name: Not enough balance
+                stdin: "1000\n3000"
+                stdout: Insufficient balance
+              - name: Sending the whole balance is allowed
+                visible: false
+                stdin: "5000\n5000"
+                stdout: Approved
+                hint: "Check your comparison when amount and balance are exactly equal."
+              - name: Zero is not a valid amount
+                visible: false
+                stdin: "5000\n0"
+                stdout: Invalid amount
+              - name: Negative amounts are rejected
+                visible: false
+                stdin: "100\n-50"
+                stdout: Invalid amount
+              - name: Only one message is printed
+                visible: false
+                match: exact
+                stdin: "1000\n3000"
+                stdout: Insufficient balance
+                hint: "Use elif/else so only one branch runs."
+            hints:
+              - { level: 1, text: "Which situations can happen? Which one must be checked first, and why?" }
+              - { level: 2, text: "elif means “otherwise, if…”. Python runs only the first branch whose condition is True." }
+              - { level: 3, text: "Use the Logic Playground: set amount equal to balance. Which branch lights up?" }
+              - { level: 4, text: "After the first if, add: elif amount > balance: print(\"Insufficient balance\") and else: print(\"Approved\")." }
+          - slug: bus-ticket-transfer
+            title: "Transfer: Bus Ticket Prices"
+            tier: transfer
+            xp: 60
+            skills: [conditions, input-output]
+            prompt: |
+              A bus company prices tickets by age (invented prices). Read the passenger's **age** and print `Ticket price: <price> RWF`:
+              - under 12 → 200
+              - 60 or older → 250
+              - everyone else → 500
+              If the age is below 0, print `Invalid age` instead.
+            requirements:
+              - Read the age with int(input())
+              - Handle invalid ages first
+              - Boundaries — 12 pays full price, 60 pays the senior price
+            starter_code: |
+              # Bus ticket pricing
+
+            solution: |
+              age = int(input("Age: "))
+              if age < 0:
+                  print("Invalid age")
+              elif age < 12:
+                  print("Ticket price: 200 RWF")
+              elif age >= 60:
+                  print("Ticket price: 250 RWF")
+              else:
+                  print("Ticket price: 500 RWF")
+            quality_checks:
+              - { rule: uses_if, message: "Use if / elif / else for the price rules." }
+            tests:
+              - name: Child
+                stdin: "8"
+                stdout: "Ticket price: 200 RWF"
+              - name: Adult
+                stdin: "30"
+                stdout: "Ticket price: 500 RWF"
+              - name: Exactly 12 pays full price
+                visible: false
+                stdin: "12"
+                stdout: "Ticket price: 500 RWF"
+              - name: Exactly 60 is a senior
+                visible: false
+                stdin: "60"
+                stdout: "Ticket price: 250 RWF"
+              - name: Negative age
+                visible: false
+                stdin: "-1"
+                stdout: Invalid age
+              - name: A baby rides as a child
+                visible: false
+                stdin: "0"
+                stdout: "Ticket price: 200 RWF"
+            hints:
+              - { level: 1, text: "List the age groups. Where exactly does each one start and end?" }
+              - { level: 2, text: "< 12 includes 11 but not 12. >= 60 includes 60." }
+              - { level: 3, text: "Test 11, 12, 59 and 60 yourself before submitting." }
+            rubric: { correctness: 0.6, quality: 0.15, independence: 0.25 }
+        blocks:
+          - type: story
+            id: story
+            title: Should this payment go through?
+            scene: momo
+            body: |
+              Every second, mobile-money systems decide whether to approve a payment. The rules are simple to say —
+              “you can't send more than you have” — but the program must check them precisely, in the right order.
+          - type: explain
+            id: comparisons
+            title: Comparisons produce True or False
+            body: |
+              `amount > balance` is a **comparison**. Python evaluates it to `True` or `False` (called **booleans**).
+              Operators: `<` less than, `<=` less or equal, `>` greater, `>=` greater or equal, `==` equal, `!=` not equal.
+            code: |
+              balance = 5000
+              amount = 2000
+              print(amount > balance)   # False
+              print(amount <= balance)  # True
+          - type: visual
+            id: playground
+            component: logic-playground
+            caption: Change the inputs and predict the branch before you look. The Python below highlights the line that runs.
+            config:
+              inputs:
+                - { name: balance, label: Balance (RWF), min: 0, max: 20000, step: 500, default: 5000 }
+                - { name: amount, label: Amount (RWF), min: -1000, max: 20000, step: 500, default: 2000 }
+              branches:
+                - { condition: { left: amount, op: "<=", right: 0 }, result: Invalid amount, tone: warn }
+                - { condition: { left: amount, op: ">", right: { var: balance } }, result: Insufficient balance, tone: bad }
+              else: { result: Approved, tone: good }
+          - type: predict
+            id: predict-boundary
+            question: balance = 5000 and amount = 5000. Using the rules above, what is printed?
+            options:
+              - { id: approved, label: Approved }
+              - { id: insufficient, label: Insufficient balance }
+              - { id: invalid, label: Invalid amount }
+            answer: approved
+            explanation: 5000 > 5000 is False (they're equal, not greater), so the second rule doesn't match and the else branch runs. Exact boundaries are where most bugs hide — always test them.
+          - type: xray
+            id: xray
+            title: Step through a decision
+            prompt: Step through and notice that Python skips the branches whose condition is False.
+            code: |
+              balance = 3000
+              amount = 4500
+              if amount <= 0:
+                  message = "Invalid amount"
+              elif amount > balance:
+                  message = "Insufficient balance"
+              else:
+                  message = "Approved"
+              print(message)
+          - type: challenge
+            id: project
+            challenge: momo-validator
+          - type: challenge
+            id: transfer
+            challenge: bus-ticket-transfer
+          - type: reflection
+            id: reflect
+            prompt: Why does the order of the checks matter in your validator? What would go wrong if you checked “amount > balance” before “amount <= 0”?
+            min_chars: 40
+
+      - slug: delivery-route-loops
+        title: "Mission: The Delivery Round"
+        summary: Automate repetitive work with loops — and learn to spot a loop that never ends.
+        kind: mission
+        xp: 100
+        estimated_minutes: 25
+        prerequisites: [mobile-money-validator]
+        objectives:
+          - Repeat work with for and range()
+          - Keep a running total inside a loop
+          - Recognise and fix an infinite while loop
+        skills: [loops]
+        challenges:
+          - slug: delivery-round-loop
+            title: Delivery Round Report
+            tier: project
+            xp: 50
+            skills: [loops, input-output]
+            prompt: |
+              A rider makes **n** deliveries and earns the same **pay** for each. Read n and pay, print one line per delivery
+              like `Delivery 1: 500 RWF`, and finish with `Total: <total> RWF`.
+            requirements:
+              - Read n and pay with int(input())
+              - One line per delivery, numbered from 1
+              - A final total line
+              - Works when n is 0
+            starter_code: |
+              n = int(input("Deliveries: "))
+              pay = int(input("Pay per delivery: "))
+              total = 0
+
+              for i in range(1, n + 1):
+                  # print this delivery and add to the total
+                  pass
+
+              print(f"Total: {total} RWF")
+            solution: |
+              n = int(input("Deliveries: "))
+              pay = int(input("Pay per delivery: "))
+              total = 0
+              for i in range(1, n + 1):
+                  print(f"Delivery {i}: {pay} RWF")
+                  total = total + pay
+              print(f"Total: {total} RWF")
+            quality_checks:
+              - { rule: uses_loop, message: "Use a loop rather than writing each line by hand." }
+            tests:
+              - name: Three deliveries
+                stdin: "3\n500"
+                stdout: |
+                  Delivery 1: 500 RWF
+                  Delivery 2: 500 RWF
+                  Delivery 3: 500 RWF
+                  Total: 1500 RWF
+              - name: A day with no deliveries
+                visible: false
+                stdin: "0\n500"
+                stdout: "Total: 0 RWF"
+              - name: Five deliveries at 800
+                visible: false
+                stdin: "5\n800"
+                stdout: |
+                  Delivery 1: 800 RWF
+                  Delivery 5: 800 RWF
+                  Total: 4000 RWF
+            hints:
+              - { level: 1, text: "What should happen once per delivery? That's what goes inside the loop." }
+              - { level: 2, text: "range(1, n + 1) gives 1, 2, …, n. The variable i holds the current delivery number." }
+              - { level: 3, text: "Open the Loop Simulator and watch the total grow by pay each time round." }
+              - { level: 4, text: "Inside the loop: print(f\"Delivery {i}: {pay} RWF\") then total = total + pay." }
+          - slug: infinite-loop-debug
+            title: "Debug: The Endless Round"
+            tier: debug
+            xp: 40
+            skills: [loops]
+            prompt: This program should deliver 3 packages and then print `All done!` — but it never stops. Find the bug and fix it.
+            requirements:
+              - Deliver packages 1, 2 and 3
+              - Print All done! at the end
+            starter_code: |
+              deliveries = 3
+              count = 1
+              while count <= deliveries:
+                  print("Delivering package", count)
+              print("All done!")
+            solution: |
+              deliveries = 3
+              count = 1
+              while count <= deliveries:
+                  print("Delivering package", count)
+                  count = count + 1
+              print("All done!")
+            tests:
+              - name: Delivers three packages and finishes
+                stdout: |
+                  Delivering package 1
+                  Delivering package 2
+                  Delivering package 3
+                  All done!
+              - name: The counter stops just past the last delivery
+                kind: variables
+                variables: { count: 4 }
+            hints:
+              - { level: 1, text: "Run it. What do you see repeating? Does count ever change?" }
+              - { level: 2, text: "A while loop keeps going as long as its condition is True. What would make count <= deliveries become False?" }
+              - { level: 3, text: "Step through with Code X-Ray and watch the count variable." }
+              - { level: 4, text: "Inside the loop, add count = count + 1 (indented to match the print)." }
+        blocks:
+          - type: story
+            id: story
+            title: Jean's delivery round
+            scene: rider
+            body: |
+              Jean delivers parcels on a moto. Each delivery follows the same steps: ride, hand over, get paid.
+              Writing those steps once for every delivery would be slow and error-prone. A **loop** writes them once
+              and repeats them.
+          - type: visual
+            id: sim
+            component: loop-simulator
+            caption: Step through the round. Each iteration is one delivery. Try the “forget to count” bug to see an infinite loop stopped safely.
+            config:
+              deliveries: { min: 0, max: 10, default: 4 }
+              pay: { min: 100, max: 2000, step: 100, default: 500 }
+              max_iterations: 25
+          - type: explain
+            id: for
+            title: for loops and range()
+            body: |
+              `for i in range(1, 4):` runs the indented block once for each value 1, 2, 3. `range` stops **before** its
+              second number. The indented lines are the loop's **body**.
+            code: |
+              total = 0
+              for i in range(1, 4):
+                  total = total + 500
+              print(total)
+          - type: predict
+            id: predict-range
+            question: "What does  for i in range(3): print(i)  print?"
+            options:
+              - { id: a, label: "1 2 3" }
+              - { id: b, label: "0 1 2" }
+              - { id: c, label: "0 1 2 3" }
+            answer: b
+            explanation: range(3) starts at 0 and stops before 3, giving 0, 1, 2 — three numbers. Use range(1, n + 1) when you want to count from 1 to n.
+          - type: xray
+            id: xray
+            title: Watch the total grow
+            prompt: Step through and watch i and total change on every iteration.
+            code: |
+              total = 0
+              for i in range(1, 4):
+                  total = total + 500
+              print("Total:", total)
+          - type: challenge
+            id: project
+            challenge: delivery-round-loop
+          - type: explain
+            id: while
+            title: while loops — and loops that never end
+            body: |
+              A `while` loop repeats as long as its condition is True. If nothing inside the loop ever makes the condition
+              False, it runs forever — an **infinite loop**. CodeVerse stops programs after a step limit so nothing freezes.
+          - type: challenge
+            id: debug
+            challenge: infinite-loop-debug
+          - type: reflection
+            id: reflect
+            prompt: Explain what made the while loop run forever and how your change made it stop.
+            min_chars: 30
+
+      - slug: rider-day-summary
+        title: "Capstone: Rider Day Summary"
+        summary: Combine input, variables, decisions and loops into one complete program for a moto rider.
+        kind: capstone
+        xp: 200
+        estimated_minutes: 40
+        prerequisites: [delivery-route-loops]
+        objectives:
+          - Break a bigger problem into steps
+          - Combine loops, conditions and running totals
+          - Handle edge cases (no trips, exact thresholds)
+          - Explain your design decisions
+        skills: [decomposition, loops, conditions, expressions]
+        challenges:
+          - slug: rider-day-summary-capstone
+            title: Rider Day Summary
+            tier: capstone
+            xp: 120
+            skills: [decomposition, loops, conditions, expressions, input-output]
+            prompt: |
+              Build the end-of-day summary for a moto rider.
+
+              1. Read the number of trips **n**, then read the **distance** of each trip (whole km), one per line.
+              2. Each trip costs `500 + 300 × distance` RWF. Trips of **10 km or more** earn an extra **1000 RWF** long-trip bonus.
+              3. Print each trip as `Trip 1: 1100 RWF`.
+              4. Print `Total earnings: <total> RWF`.
+              5. If the total is **10000 or more**, print `Target reached!`; otherwise print `Keep going: <missing> RWF to target`.
+            requirements:
+              - One line per trip, numbered from 1
+              - Long-trip bonus for distance >= 10
+              - Correct total line
+              - Target message for both cases
+              - Works for a day with no trips
+            starter_code: |
+              # Rider Day Summary
+              # Plan first: what happens once? what happens for every trip? what happens at the end?
+
+            solution: |
+              n = int(input("Trips today: "))
+              total = 0
+              for i in range(1, n + 1):
+                  distance = int(input(f"Distance of trip {i}: "))
+                  fare = 500 + 300 * distance
+                  if distance >= 10:
+                      fare = fare + 1000
+                  print(f"Trip {i}: {fare} RWF")
+                  total = total + fare
+              print(f"Total earnings: {total} RWF")
+              target = 10000
+              if total >= target:
+                  print("Target reached!")
+              else:
+                  print(f"Keep going: {target - total} RWF to target")
+            quality_checks:
+              - { rule: uses_loop, message: "Process the trips with a loop." }
+              - { rule: uses_if, message: "Use conditions for the bonus and the target." }
+              - { rule: uses_input, message: "Read the trips with input()." }
+            rubric: { correctness: 0.55, quality: 0.2, independence: 0.25 }
+            tests:
+              - name: A typical day (3 trips)
+                stdin: "3\n2\n5\n12"
+                stdout: |
+                  Trip 1: 1100 RWF
+                  Trip 2: 2000 RWF
+                  Trip 3: 5100 RWF
+                  Total earnings: 8200 RWF
+                  Keep going: 1800 RWF to target
+              - name: Two long trips reach the target
+                visible: false
+                stdin: "2\n10\n15"
+                stdout: |
+                  Trip 1: 4500 RWF
+                  Trip 2: 6000 RWF
+                  Total earnings: 10500 RWF
+                  Target reached!
+                hint: "Check the bonus applies when the distance is exactly 10."
+              - name: A day off
+                visible: false
+                stdin: "0"
+                stdout: |
+                  Total earnings: 0 RWF
+                  Keep going: 10000 RWF to target
+              - name: 9 km gets no bonus
+                visible: false
+                stdin: "1\n9"
+                stdout: |
+                  Trip 1: 3200 RWF
+                  Total earnings: 3200 RWF
+                  Keep going: 6800 RWF to target
+              - name: Exactly on target
+                visible: false
+                stdin: "5\n5\n5\n5\n5\n5"
+                stdout: |
+                  Trip 5: 2000 RWF
+                  Total earnings: 10000 RWF
+                  Target reached!
+                hint: "Reaching exactly 10000 counts as reaching the target."
+            hints:
+              - { level: 1, text: "Which parts happen once (before or after the trips) and which happen for every trip?" }
+              - { level: 2, text: "Read the distance inside the loop — each trip has its own distance." }
+              - { level: 3, text: "Start with a total of 0 before the loop, add each fare inside it, and decide the target message after it." }
+              - { level: 4, text: "Structure: read n → total = 0 → for each trip: read distance, compute fare, add bonus if distance >= 10, print, add to total → print total → if/else for the target." }
+        blocks:
+          - type: story
+            id: story
+            title: Jean's end-of-day summary
+            scene: rider
+            body: |
+              Jean wants a summary at the end of every day: what each trip earned, the day's total, and whether the
+              daily target of 10,000 RWF was reached. You have every skill you need. The hard part is putting them together.
+          - type: sequence
+            id: plan
+            prompt: Put the program's steps in a sensible order before you write any code.
+            items:
+              - { id: read-n, label: Read how many trips there were }
+              - { id: start-total, label: Start the total at 0 }
+              - { id: loop, label: "For each trip: read the distance, calculate and print the fare, add it to the total" }
+              - { id: print-total, label: Print the total earnings }
+              - { id: target, label: Decide and print the target message }
+            answer: [read-n, start-total, loop, print-total, target]
+            explanation: The total must exist before the loop adds to it, and the target can only be checked once every trip has been counted. Planning the order first is called **problem decomposition**.
+          - type: predict
+            id: predict-bonus
+            question: A trip is exactly 10 km. How much does it earn?
+            options:
+              - { id: a, label: "3500 RWF" }
+              - { id: b, label: "4500 RWF" }
+              - { id: c, label: "3000 RWF" }
+            answer: b
+            explanation: 500 + 300 × 10 = 3500, and 10 km counts as “10 km or more”, so the 1000 RWF bonus applies → 4500 RWF.
+          - type: challenge
+            id: capstone
+            challenge: rider-day-summary-capstone
+          - type: reflection
+            id: reflect
+            prompt: Describe how you split this problem into parts, one edge case you tested, and what you would add next to make the program more useful for Jean.
+            min_chars: 60

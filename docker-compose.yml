@@ -1,0 +1,24 @@
+# Local infrastructure. `docker compose up -d db` gives you PostgreSQL;
+# then set DATABASE_URL=postgres://codeverse:codeverse@localhost:5432/codeverse in .env.
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: codeverse
+      POSTGRES_USER: codeverse
+      POSTGRES_PASSWORD: codeverse   # local development only
+    ports: ["5432:5432"]
+    volumes: [pgdata:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U codeverse"]
+      interval: 5s
+      retries: 10
+
+  # Pre-pull the grading image so the first submission isn't slow (GRADER_BACKEND=docker).
+  grader-image:
+    image: python:3.12-alpine
+    command: ["python", "-c", "print('grader image ready')"]
+    network_mode: none
+
+volumes:
+  pgdata:

@@ -1,0 +1,15 @@
+.env
+.env.local
+__pycache__/
+*.pyc
+backend/.venv/
+backend/db.sqlite3
+backend/staticfiles/
+.pytest_cache/
+node_modules/
+frontend/.next/
+frontend/out/
+frontend/test-results/
+frontend/playwright-report/
+*.log
+.DS_Store

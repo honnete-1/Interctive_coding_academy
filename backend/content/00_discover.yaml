@@ -1,0 +1,298 @@
+# World 0 — Discover Programming
+# Schema: apps/curriculum/schema.py. Answer keys (answer/explanation/solution) never reach the browser
+# before the learner answers; hidden tests never reach it at all.
+
+world:
+  slug: discover
+  title: Discover Programming
+  tagline: Give precise instructions. Watch a machine follow them.
+  order: 0
+  theme: coral
+  description: |
+    Before any code: what a computer is, what an instruction is, and why order matters.
+    You will program a delivery robot, see what happens when instructions are wrong, and fix them.
+
+skills:
+  - slug: sequencing
+    name: Sequencing
+    description: Put instructions in the exact order a machine must follow them.
+  - slug: algorithms
+    name: Algorithms
+    description: Describe a repeatable step-by-step method that solves a problem.
+    prerequisites: [sequencing]
+  - slug: debugging
+    name: Debugging
+    description: Find the instruction that causes a wrong result and correct it.
+    prerequisites: [sequencing]
+
+modules:
+  - slug: thinking-like-a-computer
+    title: Thinking Like a Computer
+    description: Instructions, order, repetition and bugs — with a robot that does exactly what you say.
+    lessons:
+      - slug: what-is-programming
+        title: What Is Programming?
+        summary: Computers follow instructions exactly. Programming is writing those instructions.
+        kind: lesson
+        xp: 40
+        estimated_minutes: 8
+        objectives:
+          - Explain what a program is in one sentence
+          - Describe input, processing and output with an everyday example
+          - Recognise that a computer follows instructions literally
+        skills: [sequencing]
+        blocks:
+          - type: story
+            id: intro
+            title: The phone in your pocket is following instructions
+            scene: computer
+            body: |
+              When you send mobile money, your phone doesn't *understand* that you want to pay for lunch.
+              It follows a long list of very precise instructions someone wrote: show a menu, read the number
+              you typed, check your balance, send a message to the network.
+
+              That list of instructions is a **program**. Writing it is **programming**.
+          - type: explain
+            id: ipo
+            title: Input → Processing → Output
+            body: |
+              Almost every program follows the same shape:
+
+              - **Input** — information comes in (the amount you type).
+              - **Processing** — the computer works with it (is the balance big enough?).
+              - **Output** — a result comes out (“Transaction approved” on screen).
+
+              A computer is extremely fast and never gets bored, but it has **no common sense**.
+              It does exactly what the instructions say — even when the instructions are wrong.
+          - type: sequence
+            id: send-money
+            prompt: Put these steps in the order a mobile-money app must follow to send money.
+            items:
+              - { id: open, label: Open the mobile money menu }
+              - { id: choose, label: Choose “Send money” }
+              - { id: number, label: Enter the receiver's phone number }
+              - { id: amount, label: Enter the amount }
+              - { id: pin, label: Enter your PIN to confirm }
+              - { id: receipt, label: Show the confirmation message }
+            answer: [open, choose, number, amount, pin, receipt]
+            explanation: |
+              The app can't check your PIN against a payment that doesn't exist yet, and it can't show a
+              receipt before the money moves. Order matters because each step depends on the ones before it.
+              That idea is called **sequencing**.
+          - type: predict
+            id: literal
+            question: A recipe says “Add sugar. Stir.” but forgets to say “Boil water” first. What would a computer do with these instructions?
+            options:
+              - { id: a, label: Notice the missing step and boil the water anyway }
+              - { id: b, label: Follow the steps exactly — add sugar and stir, without boiling water }
+              - { id: c, label: Refuse to start because the recipe is wrong }
+            answer: b
+            explanation: |
+              A computer does not guess what you meant. It runs the instructions it was given. When a program
+              gives the wrong result, the computer isn't broken — the instructions are. Finding those mistakes is
+              called **debugging**, and you'll practise it soon.
+          - type: reflection
+            id: reflect
+            prompt: Name one app or machine you use every day and describe its input, processing and output.
+            min_chars: 25
+
+      - slug: delivery-robot
+        title: The Delivery Robot
+        summary: Program a robot to pick up and deliver packages. Wrong instructions have visible consequences.
+        kind: mission
+        xp: 60
+        estimated_minutes: 15
+        prerequisites: [what-is-programming]
+        objectives:
+          - Write a sequence of instructions that solves a task
+          - Predict where a robot will be after a list of instructions
+          - Use a failed attempt as information
+        skills: [sequencing, algorithms]
+        challenges:
+          - slug: robot-straight-road
+            title: Straight Road Delivery
+            kind: robot
+            tier: micro
+            xp: 25
+            skills: [sequencing]
+            prompt: The package (📦) is on the road ahead and the delivery point (🏠) is beyond it. Program the robot to pick up the package and deliver it.
+            requirements:
+              - Pick up the package where it lies
+              - Drop it at the delivery point
+            spec:
+              grid:
+                - "S.P.D"
+              facing: E
+              allowed: [forward, pick, drop]
+            hints:
+              - { level: 1, text: "Count the squares. How many steps forward until the robot stands on the package?" }
+              - { level: 2, text: "The robot must be *on* the package's square before “pick” works." }
+              - { level: 3, text: "Two steps to the package, then two more to the house." }
+              - { level: 4, text: "forward, forward, pick, then move to the house and drop." }
+          - slug: robot-turning-corners
+            title: Turning Corners
+            kind: robot
+            tier: micro
+            xp: 30
+            skills: [sequencing, algorithms]
+            prompt: Walls (🧱) block the way. Turn the robot so it reaches the package and then the delivery point without crashing.
+            requirements:
+              - Never drive into a wall or off the map
+              - Pick up the package, then deliver it
+            spec:
+              grid:
+                - "S..#"
+                - "#.P#"
+                - "#.D."
+              facing: E
+              allowed: [forward, left, right, pick, drop]
+            hints:
+              - { level: 1, text: "Which way is the robot facing at the start? Which way does it need to go?" }
+              - { level: 2, text: "“left” and “right” turn the robot in place — they don't move it." }
+              - { level: 3, text: "Trace the path with your finger: one step east, then down, then east onto the package." }
+              - { level: 4, text: "forward, right, forward, left, forward, pick, right, forward, drop" }
+        blocks:
+          - type: story
+            id: story
+            title: Meet Kora, the delivery robot
+            scene: robot
+            body: |
+              Kora delivers packages around the neighbourhood. Kora is fast and strong — and does **exactly**
+              what you tell it. Nothing more, nothing less.
+
+              Kora understands five instructions: **forward** (one square), **left** and **right** (turn on the spot),
+              **pick** (pick up a package) and **drop** (deliver it).
+          - type: challenge
+            id: c1
+            challenge: robot-straight-road
+          - type: predict
+            id: predict-turn
+            question: Kora faces east (→). You run “left, forward”. Which way did Kora move?
+            options:
+              - { id: north, label: "North (up)" }
+              - { id: south, label: "South (down)" }
+              - { id: west, label: "West (left on the map)" }
+            answer: north
+            explanation: Turning left from east makes Kora face north. “left” only turns — the move happens on “forward”, in the new direction.
+          - type: challenge
+            id: c2
+            challenge: robot-turning-corners
+          - type: explain
+            id: algorithm
+            title: You just wrote an algorithm
+            body: |
+              An **algorithm** is a precise, step-by-step method for solving a problem. Your list of robot instructions
+              is an algorithm for “deliver this package on this map”.
+
+              Notice what happened when a step was wrong: the robot crashed at a specific step. That step number is a
+              clue. Programmers use clues like this all the time.
+
+      - slug: neighbourhood-capstone
+        title: "Capstone: Neighbourhood Delivery"
+        summary: Predict, debug and optimise robot programs — then see them as real Python.
+        kind: capstone
+        xp: 100
+        estimated_minutes: 20
+        prerequisites: [delivery-robot]
+        objectives:
+          - Predict a program's outcome before running it
+          - Find and fix the bug in someone else's program
+          - Use repetition to shorten a program
+          - Connect robot blocks to Python code
+        skills: [algorithms, debugging]
+        challenges:
+          - slug: robot-fix-the-route
+            title: Fix the Broken Route
+            kind: robot
+            tier: debug
+            xp: 40
+            skills: [debugging]
+            prompt: A colleague wrote this program but Kora drives off the map. Run it, find the first wrong instruction, and fix it. Change as little as possible.
+            requirements:
+              - Find which step causes the crash
+              - Fix the program so the package is delivered
+            spec:
+              grid:
+                - "S.#"
+                - ".P."
+                - ".D."
+              facing: E
+              allowed: [forward, left, right, pick, drop]
+              starter_program:
+                - { cmd: left }
+                - { cmd: forward }
+                - { cmd: left }
+                - { cmd: forward }
+                - { cmd: pick }
+                - { cmd: right }
+                - { cmd: forward }
+                - { cmd: drop }
+            hints:
+              - { level: 1, text: "Run the program as it is. At which step does it fail?" }
+              - { level: 2, text: "Kora starts facing east. After the very first instruction, which way is Kora facing?" }
+              - { level: 3, text: "The package is below-right of the start. To go down from facing east, which turn do you need?" }
+              - { level: 4, text: "Only the first instruction is wrong: change “left” to “right”." }
+          - slug: robot-long-road
+            title: The Long Road (use repeat)
+            kind: robot
+            tier: project
+            xp: 50
+            skills: [algorithms]
+            prompt: The package is far down the road. Deliver it using **at most 6 blocks**. Hint — a repeat block counts as one block, plus the blocks inside it.
+            requirements:
+              - Deliver the package
+              - Use 6 blocks or fewer (use a repeat block)
+            spec:
+              grid:
+                - "S.....P"
+                - "######D"
+              facing: E
+              allowed: [forward, left, right, pick, drop, repeat]
+              max_blocks: 6
+            hints:
+              - { level: 1, text: "Which instruction would you write many times in a row?" }
+              - { level: 2, text: "A repeat block runs the blocks inside it several times." }
+              - { level: 3, text: "Six forwards in a row could be one repeat block with one forward inside." }
+              - { level: 4, text: "repeat 6 [forward], pick, right, forward, drop" }
+        blocks:
+          - type: story
+            id: story
+            title: A real delivery round
+            scene: robot
+            body: |
+              Kora's manager has three jobs for you: check a program before it runs, fix a colleague's broken route,
+              and make a long route shorter.
+          - type: predict
+            id: predict-outcome
+            question: |
+              On the map below Kora starts facing east. Without running it, predict what happens with: “forward, forward, forward”.
+              Map: S . # (start, empty, wall)
+            options:
+              - { id: delivered, label: Kora moves 3 squares and stops }
+              - { id: crash2, label: Kora crashes into the wall on the 2nd forward }
+              - { id: crash3, label: Kora crashes on the 3rd forward }
+            answer: crash2
+            explanation: The first forward reaches the empty square. The second tries to enter the wall, so the program stops there — the third instruction never runs.
+          - type: challenge
+            id: debug
+            challenge: robot-fix-the-route
+          - type: challenge
+            id: repeat
+            challenge: robot-long-road
+          - type: explain
+            id: to-python
+            title: Your blocks are already Python
+            body: |
+              Each robot block maps directly to a line of Python. A repeat block becomes a **for loop**:
+            code: |
+              for step in range(6):
+                  robot.forward()
+              robot.pick()
+              robot.right()
+              robot.forward()
+              robot.drop()
+            note: Indentation (the spaces before robot.forward()) tells Python which lines are inside the loop. You'll write real Python next.
+          - type: reflection
+            id: explain-fix
+            prompt: In the broken route, which instruction was wrong, how did you find it, and why did your fix work?
+            min_chars: 40

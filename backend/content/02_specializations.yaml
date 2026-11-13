@@ -1,0 +1,18 @@
+# Specialisation worlds. They are marked unavailable and shown honestly as "being built"
+# (ROADMAP.md, phases 4–6). Their stage outlines are real so learners can plan ahead.
+
+world:
+  slug: ml-lab
+  title: Machine Learning Laboratory
+  tagline: Teach computers to find patterns in data — responsibly.
+  order: 2
+  theme: violet
+  is_available: false
+  prerequisite_note: Complete the Python Foundations capstone.
+  prerequisite_lessons: [rider-day-summary]
+  description: |
+    Stage 1 Data foundations (NumPy, pandas, cleaning, exploratory analysis) ·
+    Stage 2 ML fundamentals (features, labels, regression, classification, evaluation, overfitting) ·
+    Stage 3 Applied ML (scikit-learn, feature engineering, explainability, fairness) ·
+    Stage 4 Neural networks and modern AI patterns ·
+    Capstone: an explainable suspicious-message classifier with an evaluation report.

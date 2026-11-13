@@ -1,0 +1,15 @@
+world:
+  slug: devops-city
+  title: DevOps City
+  tagline: Ship software reliably — build, test, deploy, observe.
+  order: 4
+  theme: gold
+  is_available: false
+  prerequisite_note: Complete the Python Foundations capstone.
+  prerequisite_lessons: [rider-day-summary]
+  description: |
+    Stage 1 Linux, the command line, Git and GitHub ·
+    Stage 2 Builds, dependencies, testing and CI/CD ·
+    Stage 3 Docker, Compose, cloud fundamentals, infrastructure as code ·
+    Stage 4 Kubernetes basics, monitoring, rollbacks, incident response ·
+    Capstone: package, test, deploy and monitor a real Python application.
